@@ -214,6 +214,15 @@ Rectangle {
                         text: qsTr("Background mining (experimental)") + translationManager.emptyString
                     }
                 }
+                RowLayout {
+                    MoneroComponents.CheckBox {
+                        id: p2poolMining
+                        enabled: startSoloMinerButton.enabled
+                        checked: persistentSettings.allow_p2pool_mining
+                        onClicked: persistentSettings.allow_p2pool_mining = checked
+                        text: qsTr("P2Pool mining (experimental)") + translationManager.emptyString
+                    }
+                }
             }
 
             ColumnLayout {
@@ -241,17 +250,25 @@ Rectangle {
                         primary: !stopSoloMinerButton.enabled
                         text: qsTr("Start mining") + translationManager.emptyString
                         onClicked: {
-                            var success = walletManager.startMining(appWindow.currentWallet.address(0, 0), threads, persistentSettings.allow_background_mining, persistentSettings.miningIgnoreBattery)
-                            if (success) {
-                                update()
+                            if (persistentSettings.allow_p2pool_mining) {
+                                var success = walletManager.startMining(appWindow.currentWallet.address(0, 0), threads, persistentSettings.allow_background_mining, persistentSettings.allow_p2pool_mining, persistentSettings.miningIgnoreBattery)
+                                if (success)
+                                    errorPopup.text += qsTr("Debug mining on p2pool") + translationManager.emptyString
+                                    errorPopup.icon = StandardIcon.Critical
+                                    errorPopup.open()
                             } else {
-                                errorPopup.title  = qsTr("Error starting mining") + translationManager.emptyString;
-                                errorPopup.text = qsTr("Couldn't start mining.<br>") + translationManager.emptyString
-                                if (persistentSettings.useRemoteNode)
-                                    errorPopup.text += qsTr("Mining is only available on local daemons. Run a local daemon to be able to mine.<br>") + translationManager.emptyString
-                                errorPopup.icon = StandardIcon.Critical
-                                errorPopup.open()
-                            }
+                                var success = walletManager.startMining(appWindow.currentWallet.address(0, 0), threads, persistentSettings.allow_background_mining, persistentSettings.allow_p2pool_mining, persistentSettings.miningIgnoreBattery)
+                                if (success) {
+                                    update()
+                                } else {
+                                    errorPopup.title  = qsTr("Error starting mining") + translationManager.emptyString;
+                                    errorPopup.text = qsTr("Couldn't start mining.<br>") + translationManager.emptyString
+                                    if (persistentSettings.useRemoteNode)
+                                        errorPopup.text += qsTr("Mining is only available on local daemons. Run a local daemon to be able to mine.<br>") + translationManager.emptyString
+                                        errorPopup.icon = StandardIcon.Critical
+                                        errorPopup.open()
+                                    }
+                                }
                         }
                     }
 
@@ -312,6 +329,9 @@ Rectangle {
                 var probabilityFindBlockDay = 1 - Math.pow(1 - probabilityFindNextBlock, blocksPerDay);
                 var chanceFindBlockDay = Math.round(1 / probabilityFindBlockDay);
                 statusText.text = qsTr("Mining at %1 H/s. It gives you a 1 in %2 daily chance of finding a block.").arg(userHashRate).arg(chanceFindBlockDay) + translationManager.emptyString;
+            }
+            if (persistentSettings.allow_p2pool_mining) {
+                statusText.text = qsTr("Mining on P2Pool")
             }
         }
         else {

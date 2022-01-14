@@ -1375,6 +1375,7 @@ ApplicationWindow {
         property string account_name
         property string wallet_path
         property bool   allow_background_mining : false
+        property bool   allow_p2pool_mining : false
         property bool   miningIgnoreBattery : true
         property var    nettype: NetworkType.MAINNET
         property int    restore_height : 0

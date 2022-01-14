@@ -366,11 +366,11 @@ void WalletManager::miningStatusAsync()
     });
 }
 
-bool WalletManager::startMining(const QString &address, quint32 threads, bool backgroundMining, bool p2pMining, bool ignoreBattery)
+bool WalletManager::startMining(const QString &address, quint32 threads, bool backgroundMining, bool ignoreBattery)
 {
     if(threads == 0)
         threads = 1;
-    return m_pimpl->startMining(address.toStdString(), threads, backgroundMining, p2pMining, ignoreBattery);
+    return m_pimpl->startMining(address.toStdString(), threads, backgroundMining, ignoreBattery);
 }
 
 bool WalletManager::stopMining()
