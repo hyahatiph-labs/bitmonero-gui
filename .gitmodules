@@ -2,6 +2,7 @@
 	path = monero
 	url = https://github.com/hyahatiph-labs/monero
 	ignore = all
+	branch = feature-p2pool
 [submodule "external/quirc"]
 	path = external/quirc
 	url = https://github.com/dlbeer/quirc/
