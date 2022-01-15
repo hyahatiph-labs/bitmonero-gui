@@ -7,12 +7,12 @@
 	path = external/quirc
 	url = https://github.com/dlbeer/quirc/
 [submodule "p2pool"]
-	path = monero
+	path = p2pool
 	url = https://github.com/SChernykh/p2pool
 	ignore = all
 	branch = master
 [submodule "xmrig"]
-	path = monero
+	path = xmrig
 	url = https://github.com/xmrig/xmrig
 	ignore = all
 	branch = master
