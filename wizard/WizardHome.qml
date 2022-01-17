@@ -214,6 +214,7 @@ Rectangle {
                         appWindow.disconnectRemoteNode()
                         persistentSettings.wallet_path = ""
                         networkTypeDropdown.currentIndex = Qt.binding(function() { return persistentSettings.nettype });
+                        persistentSettings.wallet_path = ""
                     }
                 }
 
