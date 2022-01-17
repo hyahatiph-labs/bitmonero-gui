@@ -202,6 +202,7 @@ Rectangle {
                             persistentSettings.nettype = NetworkType.TESTNET
                         }
                         appWindow.disconnectRemoteNode()
+                        persistentSettings.wallet_path = ""
                     }
                 }
 
