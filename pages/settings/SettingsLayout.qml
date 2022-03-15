@@ -290,7 +290,9 @@ Rectangle {
         id: fiatPriceCurrencyModel
         // from https://agateau.com/2018/working-around-listmodel-limitations/
         Component.onCompleted: {
-            ["usd", "eur"].forEach(el => {
+            ["usd", "eur", "aed", "ars", "aud", "bdt", "bhd", "brl", "cad", "chf", "clp", "cny", "czk", "gbp", "hkd",
+             "huf", "idr", "ils", "inr", "jpy", "krw", "kwd", "lkr", "mmk", "mxn", "myr", "ngn", "nok", "nzd", "php",
+             "pkr", "pln", "rub", "sar", "sek", "sgd", "thb", "try", "twd", "uah", "vef", "vnd", "zar", "xau"].forEach(el => {
                 append({
                     data: `xmr${el}`,
                     column1: el.toUpperCase()
