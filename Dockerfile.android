@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM debian:latest
 
 ARG THREADS=1
 ARG ANDROID_NDK_REVISION=21d
